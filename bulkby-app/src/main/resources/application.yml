@@ -1,9 +1,6 @@
 POSTGRES_USER: postgres
 POSTGRES_PASSWORD: 12345678
 
-server:
-  port: ${PORT:8080}
-
 spring:
   application:
     name: BulkBy
