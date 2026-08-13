@@ -157,3 +157,64 @@ This repository is a working modular monolith codebase intended for local develo
 ## License
 
 This project does not specify a license file yet. Add a license before public production release if you plan to distribute it externally.
+
+## Showcase deployment (free)
+
+Below are concise steps to deploy a lightweight public showcase (backend + static frontend) using free tiers: Fly.io for the backend, Supabase for Postgres, and GitHub Pages or Vercel for the frontend.
+
+- Build and package the backend locally (or let Docker build it):
+
+```bash
+cd bulkby-app
+mvn -DskipTests package
+```
+
+- Build via Docker (multi-stage Dockerfile included):
+
+```bash
+# from repo root
+docker build -t bulky-showcase -f bulkby-app/Dockerfile .
+```
+
+- Deploy backend to Fly.io (example):
+
+```bash
+# install and login first: flyctl auth login
+cd bulkby-app
+flyctl launch --name bulky-showcase --region ord --no-deploy
+flyctl secrets set DATABASE_URL="postgres://..." SPRING_PROFILES_ACTIVE=prod
+flyctl deploy --image bulky-showcase
+```
+
+- Provision a free Postgres DB on Supabase and set `DATABASE_URL` from Supabase in Fly secrets.
+
+- Frontend (React/Vite): build then host on GitHub Pages or Vercel.
+
+```bash
+cd frontend
+npm install
+npm run build
+# deploy build/ to GitHub Pages or connect repo to Vercel
+```
+
+- Configure frontend's production API base URL to the Fly app URL (e.g. `https://bulky-showcase.fly.dev`) and redeploy.
+
+Notes:
+- Free tiers have limits (sleeping instances, monthly hours). Use for short demos and showcase only.
+- If build fails due to multi-module links, run `mvn -DskipTests package` at the repo root before Docker build.
+
+Run using in-memory H2 (quick local demo)
+
+```bash
+# start app with the `h2` profile which uses an in-memory H2 DB
+cd bulkby-app
+SPRING_PROFILES_ACTIVE=h2 mvn spring-boot:run
+```
+
+Or pass the profile as a JVM argument:
+
+```bash
+cd bulkby-app
+mvn spring-boot:run -Dspring-boot.run.profiles=h2
+```
+

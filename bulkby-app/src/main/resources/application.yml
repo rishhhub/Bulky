@@ -4,6 +4,8 @@ POSTGRES_PASSWORD: 12345678
 spring:
   application:
     name: BulkBy
+  profiles:
+    default: prod
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:bulkby}
@@ -55,7 +57,7 @@ spring:
       database: 0
 
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /api
 
