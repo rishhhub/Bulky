@@ -10,7 +10,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-    open-in-view: false  # Disable lazy loading in views to reduce memory
+    open-in-view: false
     properties:
       hibernate.jdbc.batch_size: 20
       hibernate.order_inserts: true
@@ -18,44 +18,53 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    out-of-order: false
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/bulkby}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: org.postgresql.Driver
     hikari:
-      maximum-pool-size: 10  # Reduced from 20 to save memory
-      minimum-idle: 2       # Reduced from 5 to save memory
-      connection-timeout: 20000
-      idle-timeout: 300000
-      leak-detection-threshold: 60000
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 10000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   mvc:
     throw-exception-if-no-handler-found: true
   web:
     resources:
       add-mappings: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 
 server:
   port: ${PORT:8080}
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 2
+    accept-count: 10
   compression:
     enabled: true
     min-response-size: 1024
 
 logging:
   level:
+    root: WARN
     org.bulkby: INFO
     org.springframework: WARN
-    org.hibernate: WARN
+    org.hibernate: ERROR
     com.zaxxer.hikari: WARN
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%d{HH:mm:ss} - %msg%n"
 
-# JWT: must be set via JWT_SECRET env. Validated at startup by JwtSecretValidator.
+# JWT: must be set via JWT_SECRET env.
 jwt:
   secret: ${JWT_SECRET:change-me-to-a-real-secret}
   expiration: 86400000
 
-# CORS: set CORS_ALLOWED_ORIGINS to your front-end URLs (comma-separated).
+# CORS
 app:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:}
@@ -66,7 +75,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info  # Only expose essential endpoints
+        include: health
   endpoint:
     health:
-      show-details: when-authorized
+      show-details: never
+  metrics:
+    enable:
+      jvm: false
