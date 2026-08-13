@@ -17,7 +17,8 @@
     "build": "npm run build:user && npm run build:admin && npm run build:seller",
     "preview:user": "npm run preview --workspace=@bulkby/user-app",
     "preview:admin": "npm run preview --workspace=@bulkby/admin-app",
-    "preview:seller": "npm run preview --workspace=@bulkby/seller-app"
+    "preview:seller": "npm run preview --workspace=@bulkby/seller-app",
+    "postinstall": "chmod +x node_modules/.bin/*"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
