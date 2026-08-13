@@ -26,4 +26,5 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /workspace/bulkby-app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar","--spring.profiles.active=prod"]
+ENV JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar --spring.profiles.active=prod"]
