@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build:user",
+  "outputDirectory": "packages/user-app/dist",
+  "installCommand": "npm install --legacy-peer-deps",
+  "nodeVersion": "18.x"
+}
