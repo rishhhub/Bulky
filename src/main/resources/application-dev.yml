@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:bulkby_dev
+    username: sa
+    password:
+
+logging:
+  level:
+    org.bulkby: DEBUG
+    org.springframework.web: DEBUG

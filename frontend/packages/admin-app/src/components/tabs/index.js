@@ -1,0 +1,9 @@
+export { ProductsTab } from './ProductsTab.jsx';
+export { OrdersTab } from './OrdersTab.jsx';
+export { PendingInterestsTab } from './PendingInterestsTab.jsx';
+export { WarehousesTab } from './WarehousesTab.jsx';
+export { CategoriesTab } from './CategoriesTab.jsx';
+export { EmailDomainsTab } from './EmailDomainsTab.jsx';
+export { SellersTab } from './SellersTab.jsx';
+export { SellerProductsTab } from './SellerProductsTab.jsx';
+export { CategoryRequestsTab } from './CategoryRequestsTab.jsx';

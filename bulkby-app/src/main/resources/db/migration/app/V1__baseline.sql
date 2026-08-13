@@ -1,0 +1,3 @@
+-- Baseline migration.
+-- For a fresh PostgreSQL database, run the application once with DDL_AUTO=update to create
+-- schema from JPA entities, then use ddl-auto=validate and add new changes here.

@@ -1,0 +1,28 @@
+{
+  "name": "bulkby-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:user": "npm run dev --workspace=@bulkby/user-app",
+    "dev:admin": "npm run dev --workspace=@bulkby/admin-app",
+    "dev:seller": "npm run dev --workspace=@bulkby/seller-app",
+    "dev": "npm run dev:user",
+    "build:user": "npm run build --workspace=@bulkby/user-app",
+    "build:admin": "npm run build --workspace=@bulkby/admin-app",
+    "build:seller": "npm run build --workspace=@bulkby/seller-app",
+    "build": "npm run build:user && npm run build:admin && npm run build:seller",
+    "preview:user": "npm run preview --workspace=@bulkby/user-app",
+    "preview:admin": "npm run preview --workspace=@bulkby/admin-app",
+    "preview:seller": "npm run preview --workspace=@bulkby/seller-app"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
+  }
+}

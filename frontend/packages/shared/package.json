@@ -1,0 +1,32 @@
+{
+  "name": "@bulkby/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    "./components/ui": "./components/ui/index.js",
+    "./components/forms": "./components/forms/index.js",
+    "./components/layout": "./components/layout/index.js",
+    "./components/features": "./components/features/index.js",
+    "./components/auth": "./components/auth/index.js",
+    "./hooks": "./hooks/index.js",
+    "./services": "./services/index.js",
+    "./utils": "./utils/index.js",
+    "./config": "./config/appUrls.js",
+    "./routing": "./routing/index.js",
+    "./context": "./context/ToastContext.jsx",
+    "./styles": "./styles/index.css"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "axios": "^1.6.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0"
+  }
+}
