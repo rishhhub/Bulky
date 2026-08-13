@@ -1,102 +1,159 @@
-# BulkBy - Bulk Order Platform
+# BulkBy
 
-A full-stack platform for bulk ordering where users can express interest in products and collectively reach minimum order quantities.
+BulkBy is a full-stack bulk-ordering platform that helps buyers, sellers, and admins coordinate collective purchasing, threshold-based orders, payments, and logistics from a single system.
+
+## Overview
+
+The project combines:
+
+- a modular Java backend built with Spring Boot
+- a React monorepo frontend with user, seller, and admin apps
+- role-based workflows for buyers, sellers, and administrators
+- order grouping, product catalog, authentication, payments, and logistics support
+
+## Architecture
+
+```text
+BulkBy/
+├── bulkby-app/                 # Spring Boot application bootstrap and API layer
+├── bulkby-auth/                # Auth, users, security, profiles
+├── bulkby-catalog/             # Products, categories, reviews
+├── bulkby-order/               # Interests, orders, order groups, tracking
+├── bulkby-logistics/           # Warehouses, logistics, addresses
+├── bulkby-payment/             # Payments and transaction handling
+├── bulkby-notification/        # Notifications and messaging support
+├── bulkby-common/              # Shared utilities and common exception handling
+├── frontend/                   # React workspace with multiple apps
+├── docs/                       # Project docs and guides
+├── README.md                   # Project landing documentation
+├── CONFIG.md                   # Configuration reference
+├── ADMIN_SETUP.md              # Admin setup instructions
+├── MIGRATION_GUIDE.md          # Migration notes
+├── pom.xml                     # Parent Maven configuration
+└── project-showcase.html       # Git-friendly HTML project presentation
+```
 
 ## Tech Stack
 
-- **Backend**: Spring Boot 3.2, Java 21, Spring Security, JPA, H2 Database
-- **Frontend**: React 18, Vite, React Router
-- **API Documentation**: Swagger/OpenAPI (SpringDoc)
+### Backend
+- Java 17
+- Spring Boot 3.2
+- Spring Security
+- Spring Data JPA
+- PostgreSQL-ready configuration
+- Redis support
+- SpringDoc OpenAPI / Swagger
+
+### Frontend
+- React 18
+- Vite
+- React Router
+- Monorepo app structure
+
+## Core Features
+
+- buyer product discovery and bulk demand capture
+- seller catalog and fulfillment management
+- admin oversight of products, sellers, logistics, and orders
+- interest tracking with thresholds and order lifecycle flows
+- payment, financial tracking, and transaction support
+- notification, file upload, and role-based access infrastructure
 
 ## Prerequisites
 
-- **Java 21+** - Download from [adoptium.net](https://adoptium.net/)
-- **Maven 3.8+** - Usually comes with IDE or download from [maven.apache.org](https://maven.apache.org/)
-- **Node.js 18+ and npm 9+** - Download from [nodejs.org](https://nodejs.org/) (for frontend)
+Install the following before running the project:
+
+- Java 17 or newer
+- Maven 3.8+
+- Node.js 18+
+- npm 9+
+- PostgreSQL and Redis for full local runtime parity
 
 ## Quick Start
 
-### Backend Setup
-
-1. **Start the Spring Boot application:**
+### 1) Build backend
 
 ```bash
+mvn clean install
+```
+
+### 2) Run backend
+
+```bash
+cd bulkby-app
 mvn spring-boot:run
 ```
 
-The backend will start on `http://localhost:8080`
+The API will run at:
 
-### Frontend Setup
+- http://localhost:8080/api
+- Swagger UI: http://localhost:8080/api/swagger-ui.html
 
-1. **Navigate to frontend directory:**
+### 3) Run frontend apps
+
 ```bash
 cd frontend
-```
-
-2. **Install dependencies (first time only):**
-```bash
 npm install
+npm run dev:user
 ```
 
-3. **Start the development server:**
+Optional app commands:
+
 ```bash
-npm run dev
+npm run dev:admin
+npm run dev:seller
 ```
 
-The frontend will start on `http://localhost:3000`
+Frontend URLs:
 
-## Access Points
+- User app: http://localhost:3000
+- Admin app: http://localhost:3001
+- Seller app: http://localhost:3002
 
-- **Frontend UI**: http://localhost:3000
-- **Backend API**: http://localhost:8080/api
-- **Swagger UI**: http://localhost:8080/api/swagger-ui.html
-- **H2 Console**: http://localhost:8080/api/h2-console
-  - JDBC URL: `jdbc:h2:mem:bulkby`
-  - Username: `sa`
-  - Password: (leave empty)
+## Environment and Configuration
 
-## Features
+The project configuration lives in:
 
-- User registration and authentication (JWT)
-- Product listing and management
-- Express interest with 10% deposit
-- Logistics options (Delivery/Pickup)
-- Period expiration and extension
-- Auto-refund after 24 hours of no response
-- Threshold monitoring for order groups
-- Payment collection workflow
-- Admin dashboard
+- [CONFIG.md](CONFIG.md)
+- [bulkby-app/src/main/resources/application.yml](bulkby-app/src/main/resources/application.yml)
 
-## Development
+Common environment variables include:
 
-### Backend
-- Main application: `src/main/java/org/bulkby/BulkByApplication.java`
-- API endpoints are RESTful and documented in Swagger
+```bash
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=bulkby
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=12345678
+REDIS_HOST=localhost
+REDIS_PORT=6379
+JWT_SECRET=your-secret-key
+```
 
-### Frontend
-- Entry point: `frontend/src/main.jsx`
-- Pages: `frontend/src/pages/`
-- Components: `frontend/src/components/`
-- Services: `frontend/src/services/`
+## Admin Setup
 
-## Database
+Default or bootstrap admin setup is documented here:
 
-Currently using H2 in-memory database. Data persists only while the application is running.
+- [ADMIN_SETUP.md](ADMIN_SETUP.md)
 
-To switch to PostgreSQL:
-1. Update `pom.xml` to use PostgreSQL driver
-2. Update `application.yml` with PostgreSQL connection details
-3. Create database `bulkby`
+## Documentation
 
-## API Documentation
+- [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md)
+- [docs/SETUP.md](docs/SETUP.md)
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)
+- [CONFIG.md](CONFIG.md)
 
-Once the backend is running, access Swagger UI at:
-http://localhost:8080/api/swagger-ui.html
+## GitHub Presentation
 
-You can test all endpoints directly from Swagger UI. Use the "Authorize" button to add your JWT token for authenticated endpoints.
+A simple HTML showcase page is included for previewing the project on GitHub or in a browser:
 
-## Default Configuration
+- [project-showcase.html](project-showcase.html)
 
-- JWT Secret: Set via `JWT_SECRET` environment variable or use default
-- Database: H2 in-memory
-- Ports: Backend 8080, Frontend 3000
+## Project Status
+
+This repository is a working modular monolith codebase intended for local development, demos, and GitHub hosting. It includes backend services, frontend apps, and supporting documentation to make the project easier to understand and present externally.
+
+## License
+
+This project does not specify a license file yet. Add a license before public production release if you plan to distribute it externally.
