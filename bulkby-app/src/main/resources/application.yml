@@ -19,6 +19,8 @@ spring:
 
   jpa:
     hibernate:
+      temp:
+          use_jdbc_metadata_defaults: false 
       ddl-auto: none
     show-sql: false
     open-in-view: false
