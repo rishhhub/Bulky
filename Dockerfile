@@ -25,6 +25,11 @@ RUN mvn -DskipTests clean package -pl bulkby-app -am
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /workspace/bulkby-app/target/*.jar app.jar
-EXPOSE 8080
+
+# 1. Update EXPOSE to map to Render's default routing port
+EXPOSE 10000
+
 ENV JAVA_OPTS="-Xmx384m -Xms192m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:CompressedClassSpaceSize=128m -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/dump.hprof"
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar --spring.profiles.active=prod"]
+
+# 2. Append the server port flag so Spring reads the dynamic $PORT environment variable
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar --spring.profiles.active=prod --server.port=${PORT}"]
