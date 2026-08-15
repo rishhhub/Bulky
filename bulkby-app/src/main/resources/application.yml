@@ -55,7 +55,7 @@ spring:
       write-dates-as-timestamps: false
 
 server:
-  port: ${SERVER_PORT:10000}
+  port: 10000
   servlet:
     context-path: /api
   tomcat:
