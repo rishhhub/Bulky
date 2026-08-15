@@ -89,6 +89,9 @@ app:
     hsts-enabled: true
 
 management:
+  health:
+    redis:
+      enabled: false 
   server:
     port: 10000
   endpoints:
