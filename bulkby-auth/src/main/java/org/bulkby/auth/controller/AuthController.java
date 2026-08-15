@@ -2,10 +2,9 @@ package org.bulkby.auth.controller;
 
 import org.bulkby.auth.dto.*;
 import org.bulkby.auth.service.AuthService;
-import org.bulkby.auth.util.RedisRateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +20,8 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private RedisRateLimiter otpRateLimiter;
+    // @Autowired
+    // private RedisRateLimiter otpRateLimiter;
     
     @Value("${spring.profiles.active:dev}")
     private String activeProfile;
@@ -53,13 +52,13 @@ public class AuthController {
     
     @PostMapping("/otp/send")
     public ResponseEntity<Map<String, String>> sendOtp(@Valid @RequestBody SendOtpRequest request, HttpServletRequest httpRequest) {
-        String clientId = getClientIdentifier(httpRequest, request.getContactValue());
-        if (!otpRateLimiter.isAllowed(clientId)) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("message", "Too many requests. Please wait before requesting another OTP.");
-            errorResponse.put("remainingRequests", String.valueOf(otpRateLimiter.getRemainingRequests(clientId)));
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorResponse);
-        }
+        // String clientId = getClientIdentifier(httpRequest, request.getContactValue());
+        // if (!otpRateLimiter.isAllowed(clientId)) {
+        //     Map<String, String> errorResponse = new HashMap<>();
+        //     errorResponse.put("message", "Too many requests. Please wait before requesting another OTP.");
+        //     errorResponse.put("remainingRequests", String.valueOf(otpRateLimiter.getRemainingRequests(clientId)));
+        //     return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorResponse);
+        // }
         
         String otp = authService.sendRegistrationOtp(request);
         Map<String, String> response = new HashMap<>();
@@ -78,13 +77,13 @@ public class AuthController {
     
     @PostMapping("/login/otp/send")
     public ResponseEntity<Map<String, String>> sendLoginOtp(@Valid @RequestBody SendOtpRequest request, HttpServletRequest httpRequest) {
-        String clientId = getClientIdentifier(httpRequest, request.getContactValue());
-        if (!otpRateLimiter.isAllowed(clientId)) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("message", "Too many requests. Please wait before requesting another OTP.");
-            errorResponse.put("remainingRequests", String.valueOf(otpRateLimiter.getRemainingRequests(clientId)));
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorResponse);
-        }
+        // String clientId = getClientIdentifier(httpRequest, request.getContactValue());
+        // if (!otpRateLimiter.isAllowed(clientId)) {
+        //     Map<String, String> errorResponse = new HashMap<>();
+        //     errorResponse.put("message", "Too many requests. Please wait before requesting another OTP.");
+        //     errorResponse.put("remainingRequests", String.valueOf(otpRateLimiter.getRemainingRequests(clientId)));
+        //     return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorResponse);
+        // }
         
         String otp = authService.sendLoginOtp(request);
         Map<String, String> response = new HashMap<>();
