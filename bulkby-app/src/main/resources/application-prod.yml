@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:10000}          # Force fallback to Render's default routing target
+  port: ${SERVER_PORT:10000}          # Force fallback to Render's default routing target
   servlet:
     context-path: /api        # Explicitly preserve context mapping in production
   tomcat:
