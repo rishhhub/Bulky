@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,8 @@ import java.util.Optional;
  * This runs after the main DataInitializer.
  */
 @Component
-@Order(2) // Run after main DataInitializer
+@Async 
+// @Order(2) // Run after main DataInitializer
 public class LocationDataSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(LocationDataSeeder.class);
