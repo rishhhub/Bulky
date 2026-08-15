@@ -32,4 +32,4 @@ EXPOSE 10000
 ENV JAVA_OPTS="-Xmx384m -Xms192m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:CompressedClassSpaceSize=128m -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/dump.hprof"
 
 # 2. Append the server port flag so Spring reads the dynamic $PORT environment variable
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app/app.jar --spring.profiles.active=prod --server.port=${PORT}"]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -Dserver.port=10000 -jar /app/app.jar --spring.profiles.active=prod"]
