@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// Backend has context-path: /api, so we don't need to prefix with /api
-// The proxy in vite.config.js handles /api -> http://localhost:8080/api
-const API_BASE_URL = '/api';
+const DEFAULT_API_BASE_URL = 'https://bulky-1-6zs5.onrender.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
