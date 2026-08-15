@@ -183,6 +183,7 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDTO> getAllProducts() {
         // Return all active products - minOrderQuantity is just informational (seller's minimum)
         return productRepository.findByActiveTrue()
@@ -192,6 +193,7 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDTO> searchProducts(String searchTerm, Long categoryId, BigDecimal minPrice, BigDecimal maxPrice, 
                                           String sortBy, String sortOrder) {
         Specification<Product> spec = Specification.where(null);
@@ -245,6 +247,7 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
+    @Transactional(readOnly = true)
     public List<ProductDTO> getAllProductsForAdmin() {
         return productRepository.findAll()
                 .stream()
@@ -253,6 +256,7 @@ public class ProductServiceImpl implements ProductService {
     }
     
     @Override
+    @Transactional(readOnly = true)
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
