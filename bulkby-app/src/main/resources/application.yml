@@ -89,6 +89,8 @@ app:
     hsts-enabled: true
 
 management:
+  server:
+    port: 10000
   endpoints:
     web:
       exposure:
