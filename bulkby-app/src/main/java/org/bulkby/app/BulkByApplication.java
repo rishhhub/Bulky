@@ -7,7 +7,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = "org.bulkby")
+@SpringBootApplication(
+    scanBasePackages = "org.bulkby",
+    exclude = {
+        org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class,
+        org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration.class
+    }
+)
 @EntityScan(basePackages = "org.bulkby")
 @EnableAsync 
 @EnableJpaRepositories(basePackages = "org.bulkby")
