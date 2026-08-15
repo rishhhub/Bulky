@@ -28,9 +28,7 @@ spring:
         format_sql: true
 
   flyway:
-    enabled: true
-    baseline-on-migrate: true
-    out-of-order: false
+    enabled: false
 
   servlet:
     multipart:
@@ -69,7 +67,7 @@ server:
     min-response-size: 1024
 
 jwt:
-  secret: ${JWT_SECRET:change-me-to-a-real-secret}
+  secret: ${JWT_SECRET:qsdfvbnmhgfdggdgytdfhghfdfghgrfdgghdfdgghdffplokijhgedfghjkkjhgfghjkjhghjkmjhgbhjjhgfiuhgtfuiytgfgggvbnujhghjhghbg}
   expiration: 86400000
 
 springdoc:
