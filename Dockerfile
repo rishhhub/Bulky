@@ -29,7 +29,6 @@ COPY --from=build /workspace/bulkby-app/target/*.jar app.jar
 # 1. Update EXPOSE to map to Render's default routing port
 EXPOSE 10000
 
-ENV JAVA_OPTS="-Xmx384m -Xms192m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:CompressedClassSpaceSize=128m -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/dump.hprof"
-
+ENV JAVA_OPTS="-Xmx300m -Xms150m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
 # 2. Append the server port flag so Spring reads the dynamic $PORT environment variable
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -Dserver.port=10000 -jar /app/app.jar --spring.profiles.active=prod"]
