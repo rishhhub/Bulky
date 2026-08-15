@@ -83,6 +83,7 @@ public class SecurityConfig {
                     builder.requestMatchers("/h2-console/**").permitAll();
                 }
                 builder
+                .requestMatchers("/api/actuator/health").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/products/**", "/categories/**").permitAll()
